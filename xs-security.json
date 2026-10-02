@@ -1,0 +1,43 @@
+{
+  "scopes": [
+    {
+      "name": "$XSAPPNAME.Viewer",
+      "description": "Read Bookshop catalog, inventory and analytics"
+    },
+    {
+      "name": "$XSAPPNAME.CatalogManager",
+      "description": "Create and maintain Books"
+    },
+    {
+      "name": "$XSAPPNAME.InventoryManager",
+      "description": "Create and process Restock Requests"
+    },
+    {
+      "name": "$XSAPPNAME.Administrator",
+      "description": "Maintain master data and perform workshop administration"
+    }
+  ],
+  "attributes": [],
+  "role-templates": [
+    {
+      "name": "Viewer",
+      "description": "Read-only Bookshop access",
+      "scope-references": ["$XSAPPNAME.Viewer"]
+    },
+    {
+      "name": "CatalogManager",
+      "description": "Book catalog maintenance",
+      "scope-references": ["$XSAPPNAME.CatalogManager"]
+    },
+    {
+      "name": "InventoryManager",
+      "description": "Inventory and Restock Request processing",
+      "scope-references": ["$XSAPPNAME.InventoryManager"]
+    },
+    {
+      "name": "Administrator",
+      "description": "Bookshop workshop administration",
+      "scope-references": ["$XSAPPNAME.Administrator"]
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "name": "bookshop-service",
+  "version": "1.0.0",
+  "private": true,
+  "description": "CAP Java backend for the Bookshop Management workshop application",
+  "scripts": {
+    "init": "mvn test -Dspring.profiles.active=init -Dtest=ApplicationTest",
+    "start": "mvn cds:watch",
+    "build": "mvn clean verify",
+    "verify": "mvn clean verify",
+    "build:mta": "mbt build",
+    "build:mta:seed": "BOOKSHOP_INCLUDE_SEED=true mbt build --mtar bookshop-management-initial.mtar"
+  },
+  "devDependencies": {
+    "@sap/cds-dk": "^10.0.1"
+  },
+  "engines": {
+    "node": "^22.0.0 || ^24.0.0",
+    "npm": ">=10"
+  }
+}

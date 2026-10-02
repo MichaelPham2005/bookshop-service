@@ -1,0 +1,15 @@
+{
+  "name": "bookshop-db-deployer",
+  "private": true,
+  "scripts": {
+    "build": "npx cds build .. --for hana --production --opts contentHdbtabledata=${BOOKSHOP_INCLUDE_SEED:-false}",
+    "start": "node node_modules/@sap/hdi-deploy/deploy.js --use-hdb --parameter com.sap.hana.di.table/try_fast_table_migration=true"
+  },
+  "dependencies": {
+    "@sap/hdi-deploy": "5.7.0",
+    "hdb": "^2.0.0"
+  },
+  "engines": {
+    "node": "^22.0.0 || ^24.0.0"
+  }
+}

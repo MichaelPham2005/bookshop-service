@@ -1,0 +1,20 @@
+spring:
+  sql.init.mode: never
+
+cds:
+  data-source:
+    auto-config.enabled: true
+    csv.initialization-mode: never
+  security:
+    mock.enabled: false
+    authorization.enabled: true
+    authentication.mode: model-strict
+
+management:
+  endpoint:
+    health:
+      show-details: never
+
+logging:
+  pattern:
+    level: "%5p [${spring.application.name:bookshop-service},%X{traceId:-},%X{spanId:-}]"

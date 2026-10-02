@@ -1,0 +1,13 @@
+ID,publisherId,name,countryCode,website
+f2cdc091-5bde-50dd-bea9-7e722623e4d8,PUB001,Northwind Press,US,https://example.com/publishers/northwind-press
+a561ff28-638b-5da8-b191-b0fcae7a07f4,PUB002,Blue River Books,GB,https://example.com/publishers/blue-river-books
+d352c219-e537-5e09-b667-7e51c726fcce,PUB003,Contoso Academic,DE,https://example.com/publishers/contoso-academic
+434bd8f5-3bfb-5cce-899d-19fe73224403,PUB004,Alpine House,CH,https://example.com/publishers/alpine-house
+02a12a2a-3825-533a-8541-732196771257,PUB005,Harbor Technical,US,https://example.com/publishers/harbor-technical
+42b2a315-f1df-517c-86c8-c57bc101809f,PUB006,Maple Leaf Publishing,CA,https://example.com/publishers/maple-leaf-publishing
+07d019fb-a221-5ed7-bfea-f75e9359e511,PUB007,Orchard Media,IE,https://example.com/publishers/orchard-media
+16bca8da-142f-5c71-a698-39e0258dfbc2,PUB008,Sunrise Editions,SG,https://example.com/publishers/sunrise-editions
+fdacf979-3d43-5d02-b742-7122e407c618,PUB009,Europa Wissen,FR,https://example.com/publishers/europa-wissen
+01acac7b-cdba-5bc1-af0a-ba4fb24f7445,PUB010,Southern Cross Books,AU,https://example.com/publishers/southern-cross-books
+bbf8ac1a-22c9-5fc6-a8f5-2ea9e7d9321a,PUB011,Lotus Learning,IN,https://example.com/publishers/lotus-learning
+c6cbbd9f-b9aa-5820-926e-fd024251d9c7,PUB012,Pacific Rim Press,JP,https://example.com/publishers/pacific-rim-press

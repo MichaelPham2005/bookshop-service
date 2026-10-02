@@ -1,0 +1,29 @@
+spring:
+  datasource:
+    url: "jdbc:h2:file:./.data/bookshop;AUTO_SERVER=TRUE"
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+  sql.init:
+    mode: never
+    platform: h2
+
+cds:
+  data-source:
+    auto-config.enabled: false
+    csv.initialization-mode: never
+  security:
+    mock:
+      enabled: true
+      users:
+        workshop-admin:
+          password: admin
+          roles: [Viewer, CatalogManager, InventoryManager, Administrator]
+        catalog-manager:
+          password: catalog
+          roles: [Viewer, CatalogManager]
+        inventory-manager:
+          password: inventory
+          roles: [Viewer, InventoryManager]
+    authorization.enabled: true
+    authentication.mode: model-relaxed

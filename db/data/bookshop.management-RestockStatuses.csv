@@ -1,0 +1,8 @@
+code,name,sortOrder
+Draft,Draft,10
+Pending Review,Pending Review,20
+Approved,Approved,30
+Rejected,Rejected,40
+Ordered,Ordered,50
+Partially Received,Partially Received,60
+Received,Received,70

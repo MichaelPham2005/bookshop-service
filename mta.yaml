@@ -1,0 +1,158 @@
+_schema-version: 3.3.0
+ID: bookshop-management
+version: 1.0.2
+description: Bookshop Management workshop application
+
+parameters:
+  enable-parallel-deployments: true
+  deploy_mode: html5-repo
+
+build-parameters:
+  before-all:
+    - builder: custom
+      commands:
+        - npm ci
+        - npm --prefix ../bookshop-ui ci
+        - npm --prefix ../bookshop-ui run build
+        - mkdir -p resources
+        - jar --create --file resources/bookshop-ui.zip -C ../bookshop-ui/dist .
+
+modules:
+  - name: bookshop-service
+    type: java
+    path: srv
+    parameters:
+      instances: 1
+      memory: 768M
+      disk-quota: 1G
+      buildpack: sap_java_buildpack_jakarta
+      health-check-type: http
+      health-check-http-endpoint: /actuator/health/readiness
+    properties:
+      SPRING_PROFILES_ACTIVE: cloud
+      JBP_CONFIG_COMPONENTS: "jres: ['com.sap.xs.java.buildpack.jre.SAPMachineJRE']"
+      JBP_CONFIG_SAP_MACHINE_JRE: '{ version: 21.+ }'
+    build-parameters:
+      builder: custom
+      commands:
+        - mvn clean package -Dmaven.test.skip=true --batch-mode
+      build-result: target/*-exec.jar
+    provides:
+      - name: bookshop-api
+        properties:
+          srv-url: ${default-url}
+    requires:
+      - name: bookshop-auth
+      - name: bookshop-db
+
+  - name: bookshop-db-deployer
+    type: hdb
+    path: db
+    parameters:
+      buildpack: nodejs_buildpack
+      memory: 256M
+      disk-quota: 512M
+    build-parameters:
+      builder: custom
+      commands:
+        - npm ci
+        - npm run build
+    requires:
+      - name: bookshop-db
+
+  - name: bookshop-ui-content
+    type: com.sap.application.content
+    path: .
+    requires:
+      - name: bookshop-html5-host
+        parameters:
+          content-target: true
+    build-parameters:
+      build-result: resources
+
+  - name: bookshop-approuter
+    type: approuter.nodejs
+    path: ../bookshop-ui/approuter
+    parameters:
+      keep-existing-routes: true
+      memory: 128M
+      disk-quota: 256M
+      host: openhouse-workshop-app
+    build-parameters:
+      builder: custom
+      commands:
+        - npm ci --omit=dev
+    requires:
+      - name: bookshop-api
+        group: destinations
+        properties:
+          name: bookshop-api
+          url: ~{srv-url}
+          forwardAuthToken: true
+      - name: bookshop-auth
+      - name: bookshop-destination
+      - name: bookshop-html5-runtime
+
+resources:
+  - name: bookshop-auth
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service: xsuaa
+      service-plan: application
+      path: ./xs-security.json
+      config:
+        xsappname: bookshop-management-${org}-${space}
+        tenant-mode: dedicated
+        oauth2-configuration:
+          credential-types: [binding-secret, x509]
+          redirect-uris:
+            - https://*.${default-domain}/login/callback
+        role-collections:
+          - name: BOOKSHOP_STUDENTS
+            description: External workshop participants
+            role-template-references:
+              - $XSAPPNAME.Viewer
+              - $XSAPPNAME.CatalogManager
+              - $XSAPPNAME.InventoryManager
+          - name: BOOKSHOP_INSTRUCTORS
+            description: Workshop instructors and operators
+            role-template-references:
+              - $XSAPPNAME.Viewer
+              - $XSAPPNAME.CatalogManager
+              - $XSAPPNAME.InventoryManager
+              - $XSAPPNAME.Administrator
+
+  - name: bookshop-db
+    type: com.sap.xs.hdi-container
+    parameters:
+      service: hana
+      service-plan: hdi-shared
+
+  - name: bookshop-destination
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service: destination
+      service-plan: lite
+      config:
+        HTML5Runtime_enabled: true
+        init_data:
+          instance:
+            destinations:
+              - Name: bookshop-ui5
+                Type: HTTP
+                ProxyType: Internet
+                URL: https://ui5.sap.com/1.148.11
+                Authentication: NoAuthentication
+            existing_destinations_policy: update
+
+  - name: bookshop-html5-host
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service: html5-apps-repo
+      service-plan: app-host
+
+  - name: bookshop-html5-runtime
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service: html5-apps-repo
+      service-plan: app-runtime

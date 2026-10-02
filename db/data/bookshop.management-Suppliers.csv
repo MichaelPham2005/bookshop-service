@@ -1,0 +1,9 @@
+ID,supplierId,name,email,leadTimeDays,reliabilityPercent
+c23e0802-8b7e-5caf-8cde-04b5bdbaaaa4,SUP001,Atlas Book Supply,orders@atlas.example,5,98
+4fba0d14-1653-512e-ae59-32879c80e1fb,SUP002,BlueShelf Distribution,service@blueshelf.example,7,94
+33d60453-604a-5674-8457-6776aad80b2e,SUP003,Central Pages Logistics,dispatch@centralpages.example,9,91
+cee7ee64-f064-532d-a824-bb8e2ae81b96,SUP004,Danube Book Trade,sales@danubebooks.example,8,96
+0da0616c-25a9-5349-85fb-bf559e882634,SUP005,Evergreen Wholesale,hello@evergreen.example,6,93
+503a0296-6dfb-52ca-b0de-b1f9225bd777,SUP006,Futura Media Supply,orders@futura.example,10,89
+d89f2834-962b-54b6-a956-60c2ceef3b8c,SUP007,Global Leaf Partners,support@globalleaf.example,12,92
+2f3e9b07-bf9b-53b6-826d-6d4dabc02054,SUP008,Horizon Academic Supply,sales@horizon.example,11,95
