@@ -4,7 +4,7 @@
   "private": true,
   "description": "CAP Java backend for the Bookshop Management workshop application",
   "scripts": {
-    "init": "mvn test -Dspring.profiles.active=init -Dtest=ApplicationTest",
+    "init": "mvn test -Dspring.profiles.active=init -Dspring.sql.init.mode=always -Dcds.data-source.csv.initialization-mode=always -Dtest=ApplicationTest",
     "start": "mvn cds:watch",
     "build": "mvn clean verify",
     "verify": "mvn clean verify",
